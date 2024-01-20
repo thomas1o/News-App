@@ -1,14 +1,39 @@
 package com.example.newsapp.data.adapter
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.R
 import com.example.newsapp.data.News
+import com.example.newsapp.databinding.NewsItemBinding
 
 class NewsListAdapter (
 
     private val newsList: List<News>
 
+): RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
 
-) {
+    private lateinit var binding: NewsItemBinding
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsListAdapter.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        binding = DataBindingUtil.inflate(inflater, R.layout.news_item, parent, false)
+        return ViewHolder(binding)
+    }
 
+    override fun onBindViewHolder(holder: NewsListAdapter.ViewHolder, position: Int) {
+        val news = newsList[position]
+        holder.bind(news)
+    }
+
+    override fun getItemCount() = newsList.size
+
+    inner class ViewHolder(binding: NewsItemBinding):RecyclerView.ViewHolder(binding.root){
+        fun bind(news: News) {
+            binding.news = news
+            binding.executePendingBindings()
+        }
+    }
 
 }
