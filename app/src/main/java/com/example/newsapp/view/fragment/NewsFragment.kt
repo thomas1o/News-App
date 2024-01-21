@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.example.newsapp.data.News
 import com.example.newsapp.data.adapter.NewsListAdapter
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.viewmodel.NewsViewModel
+import com.google.android.material.search.SearchBar
 
 class NewsFragment : Fragment() {
 
@@ -32,55 +34,15 @@ class NewsFragment : Fragment() {
             inflater, R.layout.fragment_news, container, false
         )
 
-        viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
-        val newsList = listOf(
-            News(
-                title = "First News",
-                description = "This is the first news item in the list.",
-                language = "English"
-            ),
-            News(
-                title = "Second News",
-                description = "This is the second news item in the list.",
-                language = "English"
-            ),
-            News(
-                title = "Third News",
-                description = "This is the third news item in the list.",
-                language = "English"
-            ),News(
-                title = "Third News",
-                description = "This is the third news item in the list.",
-                language = "English"
-            ),News(
-                title = "Third News",
-                description = "This is the third news item in the list.",
-                language = "English"
-            ),News(
-                title = "Third News",
-                description = "This is the third news item in the list.",
-                language = "English"
-            ),News(
-                title = "Third News",
-                description = "This is the third news item in the list.",
-                language = "English"
-            ),News(
-                title = "Third News",
-                description = "This is the third news item in the list.",
-                language = "English"
-            ),News(
-                title = "Third News",
-                description = "This is the third news item in the list.",
-                language = "English"
-            ),News(
-                title = "Third News",
-                description = "This is the third news item in the list.",
-                language = "English"
-            )
-        )
+        val searchBar = binding.searchBar
 
-        setupRecyclerView(newsList)
+        viewModel.newsList.observe(viewLifecycleOwner, Observer { newsList ->
+            setupRecyclerView(newsList)
+        })
+
+
 
         return binding.root
     }
