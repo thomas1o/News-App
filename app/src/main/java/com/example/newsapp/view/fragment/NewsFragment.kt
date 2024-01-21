@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -42,7 +43,17 @@ class NewsFragment : Fragment() {
             setupRecyclerView(newsList)
         })
 
+        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+//                viewModel.queryDatabase(query)
+                return false
+            }
 
+            override fun onQueryTextChange(searchText: String?): Boolean {
+                return false
+            }
+
+        })
 
         return binding.root
     }

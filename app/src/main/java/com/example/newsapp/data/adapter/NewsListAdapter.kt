@@ -2,6 +2,7 @@ package com.example.newsapp.data.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
@@ -25,6 +26,8 @@ class NewsListAdapter (
     override fun onBindViewHolder(holder: NewsListAdapter.ViewHolder, position: Int) {
         val news = newsList[position]
         holder.bind(news)
+        val animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.anim_slide_in_left)
+        holder.itemView.startAnimation(animation)
     }
 
     override fun getItemCount() = newsList.size

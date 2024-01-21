@@ -51,7 +51,7 @@ class NewsViewModel : ViewModel() {
                 language = "Eng"
             ),
             News(
-                title = "Third News",
+                title = "First News",
                 description = "This is the ",
                 language = "English"
             )
