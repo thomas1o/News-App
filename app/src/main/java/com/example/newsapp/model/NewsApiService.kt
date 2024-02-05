@@ -21,8 +21,9 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface NewsApiService {
-    @GET("api/1/news?apikey=pub_36693fa08c2b7c489b95080c59a82506483d3&language=en&country=in")
+    @GET("api/1/news?apikey=pub_36693fa08c2b7c489b95080c59a82506483d3&language=en&country=in&category=top")
     fun getLatestNews(): Call<NewsResponse>
+
 }
 
 object NewsApi {

@@ -29,7 +29,7 @@ class NewsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_news, container, false
@@ -37,18 +37,29 @@ class NewsFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
-        val searchBar = binding.searchBar
-
         viewModel.newsList.observe(viewLifecycleOwner, Observer { newsList ->
             setupRecyclerView(newsList)
         })
 
-//        viewModel.numberOfItems.observe(viewLifecycleOwner, Observer { numberOfItems ->
-//            binding.number.text = numberOfItems.toString()
-//        })
-//
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
             Snackbar.make(requireView(), errorMessage, 5000).show()
+        })
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        startAnimation()
+
+        val searchBar = binding.searchBar
+
+        viewModel.loadingFinished.observe(viewLifecycleOwner, Observer { loadingFinished ->
+            if(loadingFinished == false)
+                startAnimation()
+            else
+                stopAnimation()
         })
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -60,10 +71,7 @@ class NewsFragment : Fragment() {
             override fun onQueryTextChange(searchText: String?): Boolean {
                 return false
             }
-
         })
-
-        return binding.root
     }
 
     private fun setupRecyclerView(newsList: List<News>) {
@@ -73,6 +81,16 @@ class NewsFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+    }
+
+    private fun startAnimation() {
+        binding.shimmerLayout.startShimmer();
+        binding.shimmerLayout.visibility = View.VISIBLE;
+    }
+
+    private fun stopAnimation() {
+        binding.shimmerLayout.stopShimmer();
+        binding.shimmerLayout.visibility = View.GONE;
     }
 
 }
