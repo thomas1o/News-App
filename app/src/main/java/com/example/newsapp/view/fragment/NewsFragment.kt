@@ -16,7 +16,7 @@ import com.example.newsapp.data.News
 import com.example.newsapp.data.adapter.NewsListAdapter
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.viewmodel.NewsViewModel
-import com.google.android.material.search.SearchBar
+import com.google.android.material.snackbar.Snackbar
 
 class NewsFragment : Fragment() {
 
@@ -43,9 +43,17 @@ class NewsFragment : Fragment() {
             setupRecyclerView(newsList)
         })
 
+//        viewModel.numberOfItems.observe(viewLifecycleOwner, Observer { numberOfItems ->
+//            binding.number.text = numberOfItems.toString()
+//        })
+//
+        viewModel.errorMessage.observe(viewLifecycleOwner, Observer { errorMessage ->
+            Snackbar.make(requireView(), errorMessage, 5000).show()
+        })
+
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-//                viewModel.queryDatabase(query)
+//                viewModel.getNewsAndRefreshRecyclerView()
                 return false
             }
 
