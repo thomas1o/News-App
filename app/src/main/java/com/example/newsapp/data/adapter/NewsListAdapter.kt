@@ -26,7 +26,7 @@ class NewsListAdapter (
     override fun onBindViewHolder(holder: NewsListAdapter.ViewHolder, position: Int) {
         val news = newsList[position]
         holder.bind(news)
-        val animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.anim_slide_in_left)
+        val animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.anim_fade_in)
         holder.itemView.startAnimation(animation)
     }
 

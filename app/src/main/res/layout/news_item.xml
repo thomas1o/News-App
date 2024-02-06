@@ -17,13 +17,13 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?selectableItemBackground"
-        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="12dp"
         app:cardElevation="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_news_item">
 
             <TextView
                 android:id="@+id/text_news_headline"
