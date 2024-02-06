@@ -54,6 +54,7 @@ class NewsFragment : Fragment() {
         startAnimation()
 
         val searchBar = binding.searchBar
+        val swipeRefreshLayout = binding.swipeRefreshLayout
 
         viewModel.loadingFinished.observe(viewLifecycleOwner, Observer { loadingFinished ->
             if(loadingFinished == false)
@@ -64,14 +65,23 @@ class NewsFragment : Fragment() {
 
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-//                viewModel.getNewsAndRefreshRecyclerView()
-                return false
+                if (query != null) {
+                    viewModel.getNewsUsingKeyword(query)
+                }
+                return true
             }
 
             override fun onQueryTextChange(searchText: String?): Boolean {
                 return false
             }
         })
+
+        swipeRefreshLayout.setOnRefreshListener {
+            startAnimation()
+            viewModel.getNews()
+            swipeRefreshLayout.isRefreshing = false
+        }
+
     }
 
     private fun setupRecyclerView(newsList: List<News>) {

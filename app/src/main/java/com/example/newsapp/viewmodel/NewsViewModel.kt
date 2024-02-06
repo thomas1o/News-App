@@ -37,14 +37,19 @@ class NewsViewModel : ViewModel() {
 
     }
 
-    private fun getNews() {
+    fun getNews() {
         try {
             NewsApi.retrofitService.getLatestNews().enqueue(object : Callback<NewsResponse> {
                 override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                     if (response.isSuccessful) {
                         val newsResponse = response.body()
-                        _newsList.value = newsResponse?.results ?: emptyList()
-                        numberOfItems = newsResponse?.totalResults!!
+                        if (newsResponse?.results.isNullOrEmpty()) {
+                            _errorMessage.value = "No results found!"
+                            _newsList.value = emptyList()
+                        } else {
+                            _newsList.value = newsResponse?.results!!
+                            numberOfItems = newsResponse.totalResults
+                        }
                         _loadingFinished.value = true
                     } else {
                         Log.e("NewsViewModel", "Error: ${response.code()}")
@@ -54,6 +59,38 @@ class NewsViewModel : ViewModel() {
                 override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                     _errorMessage.value = "Error: ${t.message}"
                     Log.e("NewsViewModel", t.message.toString())
+                    _loadingFinished.value = true
+                }
+            })
+        } catch (e: Exception) {
+            Log.e("NewsViewModel", e.message.toString())
+        }
+    }
+
+    fun getNewsUsingKeyword(keyword: String) {
+        _loadingFinished.value = false
+        try {
+            NewsApi.retrofitService.getNewsUsingKeyword(keyword).enqueue(object : Callback<NewsResponse> {
+                override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                    if (response.isSuccessful) {
+                        val newsResponse = response.body()
+                        if (newsResponse?.results.isNullOrEmpty()) {
+                            _errorMessage.value = "No results found!"
+                            _newsList.value = emptyList()
+                        } else {
+                            _newsList.value = newsResponse?.results!!
+                            numberOfItems = newsResponse.totalResults
+                        }
+                        _loadingFinished.value = true
+                    } else {
+                        Log.e("NewsViewModel", "Error: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                    _errorMessage.value = "Error: ${t.message}"
+                    Log.e("NewsViewModel", t.message.toString())
+                    _loadingFinished.value = true
                 }
             })
         } catch (e: Exception) {
