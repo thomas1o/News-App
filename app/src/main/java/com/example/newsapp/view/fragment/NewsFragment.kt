@@ -94,13 +94,13 @@ class NewsFragment : Fragment() {
     }
 
     private fun startAnimation() {
-        binding.shimmerLayout.startShimmer();
-        binding.shimmerLayout.visibility = View.VISIBLE;
+        binding.shimmerLayout.startShimmer()
+        binding.shimmerLayout.visibility = View.VISIBLE
     }
 
     private fun stopAnimation() {
-        binding.shimmerLayout.stopShimmer();
-        binding.shimmerLayout.visibility = View.GONE;
+        binding.shimmerLayout.stopShimmer()
+        binding.shimmerLayout.visibility = View.GONE
     }
 
 }
