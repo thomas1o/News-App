@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="5dp"
         android:clickable="true"
@@ -23,37 +23,34 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_news_item">
+            android:paddingVertical="@dimen/dimen_20dp">
 
             <TextView
-                android:id="@+id/text_news_headline"
+                android:id="@+id/text_news_source"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="7dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/roboto"
-                android:maxLines="3"
+                android:layout_marginHorizontal="18dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/newsreader_regular"
+                android:maxLines="1"
+                android:text="@{news.source}"
+                android:textColor="@color/textNewsSource"
+                android:textSize="@dimen/dimen_20sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_news_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/newsreader_bold"
+                android:maxLines="6"
                 android:text="@{news.title}"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:ellipsize="end"/>
-
-            <TextView
-                android:id="@+id/text_news_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="7dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="@{news.description}"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:maxLines="14"
-                app:layout_constraintTop_toBottomOf="@id/text_news_headline"
-                android:ellipsize="end"/>
+                android:textColor="@color/colorPrimary"
+                android:textSize="22sp"
+                app:layout_constraintTop_toBottomOf="@id/text_news_source" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

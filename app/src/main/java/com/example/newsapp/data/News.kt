@@ -13,6 +13,9 @@ data class News(
 
     val description: String?,
 
+    @Json(name = "source_id")
+    val source: String?,
+
     val language: String?
 
 )

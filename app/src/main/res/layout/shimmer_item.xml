@@ -5,7 +5,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="5dp"
         app:cardBackgroundColor="@color/white"
@@ -14,13 +14,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingVertical="@dimen/dimen_20dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/shimmer_news_title"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginHorizontal="7dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="18dp"
                 android:layout_marginTop="7dp"
                 android:backgroundTint="@color/shimmerGray"
                 app:cardCornerRadius="12dp"
@@ -29,9 +30,9 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/shimmer_news_details"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:layout_marginHorizontal="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
                 android:backgroundTint="@color/shimmerGray"
                 app:cardCornerRadius="12dp"
