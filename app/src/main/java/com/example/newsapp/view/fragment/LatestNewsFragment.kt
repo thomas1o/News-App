@@ -1,10 +1,12 @@
 package com.example.newsapp.view.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -48,6 +50,7 @@ class LatestNewsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -82,6 +85,26 @@ class LatestNewsFragment : Fragment() {
             swipeRefreshLayout.isRefreshing = false
         }
 
+        binding.btLatestNews.setOnClickListener {
+            resetUIColors()
+            binding.btLatestNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        }
+
+        binding.btWorldNews.setOnClickListener {
+            resetUIColors()
+            binding.btWorldNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        }
+
+        binding.btPoliticsNews.setOnClickListener {
+            resetUIColors()
+            binding.btPoliticsNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        }
+
+        binding.btBusinessNews.setOnClickListener {
+            resetUIColors()
+            binding.btBusinessNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        }
+
     }
 
     private fun setupRecyclerView(newsList: List<News>) {
@@ -101,6 +124,13 @@ class LatestNewsFragment : Fragment() {
     private fun stopAnimation() {
         binding.shimmerLayout.stopShimmer()
         binding.shimmerLayout.visibility = View.GONE
+    }
+
+    private fun resetUIColors() {
+        binding.btLatestNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.textNewsSource))
+        binding.btWorldNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.textNewsSource))
+        binding.btPoliticsNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.textNewsSource))
+        binding.btBusinessNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.textNewsSource))
     }
 
 }
