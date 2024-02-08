@@ -2,4 +2,9 @@
     <string name="app_name">News App</string>
     <string name="string_search_news">Search news…</string>
     <string name="api_key">pub_36693a9986c712b0535c93a12ffb4db2acbf9</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="string_settings">Settings</string>
+    <string name="string_explore">Explore</string>
+    <string name="string_for_you">For You</string>
 </resources>

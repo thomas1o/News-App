@@ -14,13 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.data.News
 import com.example.newsapp.data.adapter.NewsListAdapter
-import com.example.newsapp.databinding.FragmentNewsBinding
+import com.example.newsapp.databinding.FragmentLatestNewsBinding
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class NewsFragment : Fragment() {
+class LatestNewsFragment : Fragment() {
 
-    private lateinit var binding: FragmentNewsBinding
+    private lateinit var binding: FragmentLatestNewsBinding
     private lateinit var viewModel: NewsViewModel
 
     private lateinit var recyclerView: RecyclerView
@@ -32,7 +32,7 @@ class NewsFragment : Fragment() {
     ): View {
 
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_news, container, false
+            inflater, R.layout.fragment_latest_news, container, false
         )
 
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
@@ -53,7 +53,7 @@ class NewsFragment : Fragment() {
 
         startAnimation()
 
-        val searchBar = binding.searchBar
+//        val searchBar = binding.searchBar
         val swipeRefreshLayout = binding.swipeRefreshLayout
 
         viewModel.loadingFinished.observe(viewLifecycleOwner, Observer { loadingFinished ->
@@ -63,18 +63,18 @@ class NewsFragment : Fragment() {
                 stopAnimation()
         })
 
-        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    viewModel.getNewsUsingKeyword(query)
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(searchText: String?): Boolean {
-                return false
-            }
-        })
+//        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                if (query != null) {
+//                    viewModel.getNewsUsingKeyword(query)
+//                }
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(searchText: String?): Boolean {
+//                return false
+//            }
+//        })
 
         swipeRefreshLayout.setOnRefreshListener {
             startAnimation()
