@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="news"
             type="com.example.newsapp.data.News" />
@@ -51,8 +52,8 @@
             android:id="@+id/imageView"
             android:layout_width="140dp"
             android:layout_height="match_parent"
-            android:paddingVertical="10dp"
             android:layout_marginEnd="10dp"
+            android:paddingVertical="10dp"
             android:src="@mipmap/image_template"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

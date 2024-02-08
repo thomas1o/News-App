@@ -23,9 +23,92 @@
                 android:text="@string/string_news"
                 android:textSize="@dimen/dimen_30sp"
                 android:layout_marginVertical="@dimen/dimen_10dp"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/newsreader_bold"/>
 
         </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/homePageSectionsScrollLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headingLayout"
+            android:layout_marginTop="@dimen/dimen_10dp">
+
+            <LinearLayout
+                android:id="@+id/homePageSectionsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                >
+
+                <TextView
+                    android:id="@+id/bt_latest_news"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/newsreader_bold"
+                    android:foreground="?selectableItemBackground"
+                    android:paddingEnd="@dimen/dimen_10dp"
+                    android:paddingStart="18dp"
+                    android:paddingVertical="5dp"
+                    android:text="Latest News"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/bt_world_news"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/newsreader_bold"
+                    android:foreground="?selectableItemBackground"
+                    android:paddingHorizontal="@dimen/dimen_10dp"
+                    android:paddingVertical="5dp"
+                    android:text="World"
+                    android:textColor="@color/textNewsSource"
+                    android:textSize="15sp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/bt_politics_news"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/newsreader_bold"
+                    android:foreground="?selectableItemBackground"
+                    android:paddingHorizontal="@dimen/dimen_10dp"
+                    android:paddingVertical="5dp"
+                    android:text="Politics"
+                    android:textColor="@color/textNewsSource"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/bt_business_news"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/newsreader_bold"
+                    android:foreground="?selectableItemBackground"
+                    android:paddingHorizontal="@dimen/dimen_10dp"
+                    android:paddingVertical="5dp"
+                    android:text="Business"
+                    android:textColor="@color/textNewsSource"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
@@ -34,7 +117,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headingLayout">
+            app:layout_constraintTop_toBottomOf="@id/homePageSectionsScrollLayout">
 
             <LinearLayout
                 android:id="@+id/listHolderLayout"
