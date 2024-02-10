@@ -13,10 +13,19 @@
         android:id="@+id/latestNewsFragment"
         android:name="com.example.newsapp.view.fragment.LatestNewsFragment"
         android:label="fragment_latest_news"
-        tools:layout="@layout/fragment_latest_news" />
+        tools:layout="@layout/fragment_latest_news" >
+        <action
+            android:id="@+id/action_latestNewsFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.newsapp.view.fragment.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/newsDetailsFragment"
+        android:name="com.example.newsapp.view.fragment.NewsDetailsFragment"
+        android:label="fragment_news_details"
+        tools:layout="@layout/fragment_news_details" />
 </navigation>

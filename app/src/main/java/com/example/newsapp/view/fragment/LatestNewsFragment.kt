@@ -1,11 +1,9 @@
 package com.example.newsapp.view.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,13 +15,13 @@ import com.example.newsapp.R
 import com.example.newsapp.data.News
 import com.example.newsapp.data.adapter.NewsListAdapter
 import com.example.newsapp.databinding.FragmentLatestNewsBinding
-import com.example.newsapp.viewmodel.NewsViewModel
+import com.example.newsapp.viewmodel.LatestNewsViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class LatestNewsFragment : Fragment() {
 
     private lateinit var binding: FragmentLatestNewsBinding
-    private lateinit var viewModel: NewsViewModel
+    private lateinit var viewModel: LatestNewsViewModel
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: NewsListAdapter
@@ -37,7 +35,7 @@ class LatestNewsFragment : Fragment() {
             inflater, R.layout.fragment_latest_news, container, false
         )
 
-        viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+        viewModel = ViewModelProvider(this)[LatestNewsViewModel::class.java]
 
         viewModel.newsList.observe(viewLifecycleOwner, Observer { newsList ->
             setupRecyclerView(newsList)
@@ -50,13 +48,11 @@ class LatestNewsFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         startAnimation()
 
-//        val searchBar = binding.searchBar
         val swipeRefreshLayout = binding.swipeRefreshLayout
 
         viewModel.loadingFinished.observe(viewLifecycleOwner, Observer { loadingFinished ->
@@ -66,43 +62,53 @@ class LatestNewsFragment : Fragment() {
                 stopAnimation()
         })
 
-//        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                if (query != null) {
-//                    viewModel.getNewsUsingKeyword(query)
-//                }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(searchText: String?): Boolean {
-//                return false
-//            }
-//        })
+        viewModel.selectedCategory.observe(viewLifecycleOwner, Observer { selectedCategory ->
+            when (selectedCategory) {
+                0 -> {
+                    resetUIColors()
+                    binding.btLatestNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    viewModel.getNewsByCategory("top")
+                }
+                1 -> {
+                    resetUIColors()
+                    binding.btWorldNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    viewModel.getNewsByCategory("world")
+                }
+                2 -> {
+                    resetUIColors()
+                    binding.btPoliticsNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    viewModel.getNewsByCategory("politics")
+                }
+                3 -> {
+                    resetUIColors()
+                    binding.btBusinessNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                    viewModel.getNewsByCategory("business")
+                }
+            }
+        })
 
         swipeRefreshLayout.setOnRefreshListener {
             startAnimation()
+            resetUIColors()
+            binding.btLatestNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
             viewModel.getNews()
             swipeRefreshLayout.isRefreshing = false
         }
 
         binding.btLatestNews.setOnClickListener {
-            resetUIColors()
-            binding.btLatestNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+            viewModel.onClickCategory(0)
         }
 
         binding.btWorldNews.setOnClickListener {
-            resetUIColors()
-            binding.btWorldNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+            viewModel.onClickCategory(1)
         }
 
         binding.btPoliticsNews.setOnClickListener {
-            resetUIColors()
-            binding.btPoliticsNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+            viewModel.onClickCategory(2)
         }
 
         binding.btBusinessNews.setOnClickListener {
-            resetUIColors()
-            binding.btBusinessNews.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+            viewModel.onClickCategory(3)
         }
 
     }

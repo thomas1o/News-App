@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NewsViewModel : ViewModel() {
+class LatestNewsViewModel : ViewModel() {
 
     private val _newsList = MutableLiveData<List<News>>()
     val newsList: LiveData<List<News>>
@@ -25,11 +25,17 @@ class NewsViewModel : ViewModel() {
     val loadingFinished: LiveData<Boolean>
         get() = _loadingFinished
 
+    private val _selectedCategory = MutableLiveData<Int>()
+    val selectedCategory: LiveData<Int>
+        get() = _selectedCategory
+
     private var numberOfItems: Int = 0
 
     init{
 
         getNews()
+
+        _selectedCategory.value = 0
 
         _loadingFinished.value = false
 
@@ -50,18 +56,18 @@ class NewsViewModel : ViewModel() {
                         }
                         _loadingFinished.value = true
                     } else {
-                        Log.e("NewsViewModel", "Error: ${response.code()}")
+                        Log.e("LatestNewsViewModel", "Error: ${response.code()}")
                     }
                 }
 
                 override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                     _errorMessage.value = "Error: ${t.message}"
-                    Log.e("NewsViewModel", t.message.toString())
+                    Log.e("LatestNewsViewModel", t.message.toString())
                     _loadingFinished.value = true
                 }
             })
         } catch (e: Exception) {
-            Log.e("NewsViewModel", e.message.toString())
+            Log.e("LatestNewsViewModel", e.message.toString())
         }
     }
 
@@ -81,19 +87,54 @@ class NewsViewModel : ViewModel() {
                         }
                         _loadingFinished.value = true
                     } else {
-                        Log.e("NewsViewModel", "Error: ${response.code()}")
+                        Log.e("LatestNewsViewModel", "Error: ${response.code()}")
                     }
                 }
 
                 override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
                     _errorMessage.value = "Error: ${t.message}"
-                    Log.e("NewsViewModel", t.message.toString())
+                    Log.e("LatestNewsViewModel", t.message.toString())
                     _loadingFinished.value = true
                 }
             })
         } catch (e: Exception) {
-            Log.e("NewsViewModel", e.message.toString())
+            Log.e("LatestNewsViewModel", e.message.toString())
         }
+    }
+
+    fun getNewsByCategory(category: String) {
+        _loadingFinished.value = false
+        try {
+            NewsApi.retrofitService.getNewsByCategory(category).enqueue(object : Callback<NewsResponse> {
+                override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                    if (response.isSuccessful) {
+                        val newsResponse = response.body()
+                        if (newsResponse?.results.isNullOrEmpty()) {
+                            _errorMessage.value = "No results found!"
+                            _newsList.value = emptyList()
+                        } else {
+                            _newsList.value = newsResponse?.results!!
+                            numberOfItems = newsResponse.totalResults
+                        }
+                        _loadingFinished.value = true
+                    } else {
+                        Log.e("LatestNewsViewModel", "Error: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                    _errorMessage.value = "Error: ${t.message}"
+                    Log.e("LatestNewsViewModel", t.message.toString())
+                    _loadingFinished.value = true
+                }
+            })
+        } catch (e: Exception) {
+            Log.e("LatestNewsViewModel", e.message.toString())
+        }
+    }
+
+    fun onClickCategory(categoryNumber: Int) {
+        _selectedCategory.value = categoryNumber
     }
 
 }

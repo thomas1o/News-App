@@ -1,25 +1,25 @@
 package com.example.newsapp.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.example.newsapp.R
-import com.example.newsapp.databinding.FragmentSettingsBinding
+import com.example.newsapp.databinding.FragmentNewsDetailsBinding
 
-class SettingsFragment : Fragment() {
+class NewsDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentSettingsBinding
+    private lateinit var binding: FragmentNewsDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
 
         binding = DataBindingUtil.inflate(
-            layoutInflater, R.layout.fragment_settings, container, false
+            inflater, R.layout.fragment_news_details, container, false
         )
 
         return binding.root
