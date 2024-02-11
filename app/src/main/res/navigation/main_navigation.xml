@@ -16,7 +16,9 @@
         tools:layout="@layout/fragment_latest_news" >
         <action
             android:id="@+id/action_latestNewsFragment_to_newsDetailsFragment"
-            app:destination="@id/newsDetailsFragment" />
+            app:destination="@id/newsDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -27,5 +29,9 @@
         android:id="@+id/newsDetailsFragment"
         android:name="com.example.newsapp.view.fragment.NewsDetailsFragment"
         android:label="fragment_news_details"
-        tools:layout="@layout/fragment_news_details" />
+        tools:layout="@layout/fragment_news_details" >
+        <argument
+            android:name="news"
+            app:argType="com.example.newsapp.data.News" />
+    </fragment>
 </navigation>

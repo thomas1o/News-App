@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
@@ -116,7 +117,10 @@ class LatestNewsFragment : Fragment() {
     private fun setupRecyclerView(newsList: List<News>) {
         recyclerView = binding.newsList
 
-        adapter = NewsListAdapter(newsList)
+        adapter = NewsListAdapter(newsList) { news->
+            val action = LatestNewsFragmentDirections.actionLatestNewsFragmentToNewsDetailsFragment(news = news)
+            Navigation.findNavController(requireView()).navigate(action)
+        }
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
