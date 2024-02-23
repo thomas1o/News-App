@@ -18,11 +18,15 @@ data class News(
     @Json(name = "source_id")
     val source: String?,
 
+    @Json(name = "image_url")
+    val imageUrl: String?,
+
     val language: String?
 
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -35,6 +39,7 @@ data class News(
         parcel.writeString(title)
         parcel.writeString(description)
         parcel.writeString(source)
+        parcel.writeString(imageUrl)
         parcel.writeString(language)
     }
 

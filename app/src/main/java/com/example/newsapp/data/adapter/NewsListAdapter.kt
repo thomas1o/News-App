@@ -3,9 +3,11 @@ package com.example.newsapp.data.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.ExpandableListView.OnChildClickListener
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.request.RequestOptions
 import com.example.newsapp.R
 import com.example.newsapp.data.News
 import com.example.newsapp.databinding.NewsItemBinding
@@ -40,6 +42,7 @@ class NewsListAdapter (
     inner class ViewHolder(binding: NewsItemBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(news: News) {
             binding.news = news
+            
             binding.executePendingBindings()
         }
     }

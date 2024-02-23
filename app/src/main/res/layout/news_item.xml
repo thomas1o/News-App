@@ -28,7 +28,7 @@
             android:text="@{news.source}"
             android:textColor="@color/textNewsSource"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/newsImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,12 +44,12 @@
             android:text="@{news.title}"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/newsImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_news_source" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/newsImage"
             android:layout_width="140dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
