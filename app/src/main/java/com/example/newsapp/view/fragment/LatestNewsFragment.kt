@@ -1,5 +1,6 @@
 package com.example.newsapp.view.fragment
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,19 +15,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.data.News
+import com.example.newsapp.data.NewsDatabase
+import com.example.newsapp.data.NewsDatabaseDao
 import com.example.newsapp.data.adapter.NewsListAdapter
 import com.example.newsapp.databinding.FragmentLatestNewsBinding
 import com.example.newsapp.viewmodel.LatestNewsViewModel
+import com.example.newsapp.viewmodelfactory.LatestNewsViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class LatestNewsFragment : Fragment() {
 
     private lateinit var binding: FragmentLatestNewsBinding
     private lateinit var viewModel: LatestNewsViewModel
-//    private lateinit var viewModelFactory: LatestNewsViewModelFactory
+    private lateinit var viewModelFactory: LatestNewsViewModelFactory
 
-//    private val application: Application = requireActivity().application
-//    private val database = NewsDatabase.getDatabase(application).newsDatabaseDao
+    private lateinit var application: Application
+//    private lateinit var database: NewsDatabaseDao
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: NewsListAdapter
@@ -40,9 +44,12 @@ class LatestNewsFragment : Fragment() {
             inflater, R.layout.fragment_latest_news, container, false
         )
 
-//        viewModelFactory = LatestNewsViewModelFactory(database, application)
+        application = requireNotNull(this.activity).application
+//        database = NewsDatabase.getDatabase(application).newsDatabaseDao
 
-        viewModel = ViewModelProvider(this)[LatestNewsViewModel::class.java]
+        viewModelFactory = LatestNewsViewModelFactory(application)
+
+        viewModel = ViewModelProvider(this, viewModelFactory)[LatestNewsViewModel::class.java]
         binding.lifecycleOwner = this
 
         viewModel.newsList.observe(viewLifecycleOwner, Observer { newsList ->
