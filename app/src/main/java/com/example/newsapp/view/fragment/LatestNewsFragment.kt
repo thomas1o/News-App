@@ -23,6 +23,10 @@ class LatestNewsFragment : Fragment() {
 
     private lateinit var binding: FragmentLatestNewsBinding
     private lateinit var viewModel: LatestNewsViewModel
+//    private lateinit var viewModelFactory: LatestNewsViewModelFactory
+
+//    private val application: Application = requireActivity().application
+//    private val database = NewsDatabase.getDatabase(application).newsDatabaseDao
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: NewsListAdapter
@@ -36,7 +40,10 @@ class LatestNewsFragment : Fragment() {
             inflater, R.layout.fragment_latest_news, container, false
         )
 
+//        viewModelFactory = LatestNewsViewModelFactory(database, application)
+
         viewModel = ViewModelProvider(this)[LatestNewsViewModel::class.java]
+        binding.lifecycleOwner = this
 
         viewModel.newsList.observe(viewLifecycleOwner, Observer { newsList ->
             setupRecyclerView(newsList)

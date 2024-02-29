@@ -2,25 +2,36 @@ package com.example.newsapp.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+@Entity(tableName = "news_table")
 @JsonClass(generateAdapter = true)
 data class News(
 
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "article_id")
     @Json(name = "article_id")
     val id: String,
 
+    @ColumnInfo(name="title")
     val title: String?,
 
+    @ColumnInfo(name="description")
     val description: String?,
 
+    @ColumnInfo(name="source")
     @Json(name = "source_id")
     val source: String?,
 
+    @ColumnInfo(name="image_url")
     @Json(name = "image_url")
     val imageUrl: String?,
 
+    @ColumnInfo(name="language")
     val language: String?
 
 ): Parcelable {

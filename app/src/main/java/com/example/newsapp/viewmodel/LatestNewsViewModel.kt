@@ -1,17 +1,28 @@
 package com.example.newsapp.viewmodel
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.newsapp.data.News
+import com.example.newsapp.data.NewsDatabaseDao
 import com.example.newsapp.data.NewsResponse
 import com.example.newsapp.model.NewsApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class LatestNewsViewModel : ViewModel() {
+class LatestNewsViewModel(
+
+//    val database: NewsDatabaseDao,
+//    application: Application
+
+) : ViewModel() {
 
     private val _newsList = MutableLiveData<List<News>>()
     val newsList: LiveData<List<News>>
@@ -30,6 +41,10 @@ class LatestNewsViewModel : ViewModel() {
         get() = _selectedCategory
 
     private var numberOfItems: Int = 0
+
+    private val viewModelJob = Job()
+    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
 
     init{
 
